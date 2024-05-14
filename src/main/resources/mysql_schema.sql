@@ -1,36 +1,32 @@
 create database sampleCollecting;
+
 use sampleCollecting;
 
-select * from user_account;
-select * from project;
-select * from sample;
-select * from sample_field;
-
 create table user_account (
-                              user_id varchar(100) not null primary key
+                              userId varchar(100) not null primary key
 );
 
 create table project(
                         id int not null primary key auto_increment,
-                        project_name varchar(200) not null,
-                        project_desc TINYTEXT default null,
-                        owner_id varchar(100) not null,
-                        foreign key (owner_id) references user_account(user_id)
+                        projectName varchar(200) not null,
+                        projectDesc TINYTEXT default null,
+                        ownerId varchar(100) not null,
+                        foreign key (ownerId) references user_account(userId)
 );
 
 create table sample(
                        id int not null primary key auto_increment,
-                       image_path varchar(200) not null,
-                       project_id int not null,
-                       foreign key (project_id) references project(id)
+                       imagePath varchar(200) not null,
+                       projectId int not null,
+                       foreign key (projectId) references project(id)
 );
 
 create table sample_field(
                              id int not null primary key auto_increment,
-                             field_name varchar(100) not null,
-                             feild_value TINYTEXT not null,
-                             sample_id int not null,
-                             foreign key (sample_id) references sample(id)
+                             fieldName varchar(100) not null,
+                             feildValue TINYTEXT not null,
+                             sampleId int not null,
+                             foreign key (sampleId) references sample(id)
 );
 
 insert into user_account value ('bang123');
