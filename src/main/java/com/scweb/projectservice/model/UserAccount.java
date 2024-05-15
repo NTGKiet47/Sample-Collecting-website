@@ -1,5 +1,6 @@
 package com.scweb.projectservice.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,17 +9,19 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
-@Getter
-@Setter
-@Table(name = "user_account")
-public class UserAccount {
-    @Id
-    @Column(name = "userId")
-    private String userId;
+    @Entity
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
+    @Table(name = "useraccount")
+    public class UserAccount {
+        @Id
+        @Column(name = "user_id")
+        private String userId;
 
-    @OneToMany(mappedBy = "userAccount")
-    List<Project> projectList;
-}
+        @JsonManagedReference
+        @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY
+                ,cascade = CascadeType.PERSIST, targetEntity = Project.class)
+        List<Project> projectList;
+    }

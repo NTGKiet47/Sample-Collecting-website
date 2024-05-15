@@ -1,6 +1,8 @@
 package com.scweb.projectservice.model;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,16 +19,18 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "projectName")
+    @Column(name = "project_name")
     private String projectName;
 
-    @Column(name = "projectDesc")
+    @Column(name = "project_desc")
     private String projectDesc;
 
-    @ManyToOne
-    @JoinColumn(name = "ownerId", referencedColumnName = "userId")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "owner_id")
+    @JsonBackReference
     private UserAccount userAccount;
 
-    @OneToMany(mappedBy = "project")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, targetEntity = Sample.class)
     private List<Sample> sampleList;
 }

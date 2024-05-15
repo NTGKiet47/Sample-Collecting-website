@@ -1,5 +1,7 @@
 package com.scweb.projectservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -13,18 +15,21 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
+@Table(name = "sample")
 public class Sample {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "imagePath")
+    @Column(name = "image_path")
     private String imagePath;
 
-    @ManyToOne
-    @JoinColumn(name = "projectId", referencedColumnName = "id")
+    @JsonBackReference
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
-    @OneToMany(mappedBy = "sample")
+    @JsonManagedReference
+    @OneToMany(mappedBy = "sample", fetch = FetchType.EAGER, targetEntity = SampleField.class)
     private List<SampleField> sampleFieldList;
 }
