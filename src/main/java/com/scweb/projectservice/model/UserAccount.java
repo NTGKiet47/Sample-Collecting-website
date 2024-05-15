@@ -9,19 +9,19 @@ import lombok.Setter;
 
 import java.util.List;
 
-    @Entity
-    @NoArgsConstructor
-    @AllArgsConstructor
-    @Getter
-    @Setter
-    @Table(name = "useraccount")
-    public class UserAccount {
-        @Id
-        @Column(name = "user_id")
-        private String userId;
+@Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+@Setter
+@Table(name = "user_account")
+public class UserAccount {
+    @Id
+    @Column(name = "user_id")
+    private String userId;
 
-        @JsonManagedReference
-        @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY
-                ,cascade = CascadeType.PERSIST, targetEntity = Project.class)
-        List<Project> projectList;
-    }
+    @JsonManagedReference
+    @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY
+            , cascade = CascadeType.PERSIST, targetEntity = Project.class)
+    List<Project> projectList;
+}

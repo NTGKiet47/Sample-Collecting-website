@@ -1,6 +1,5 @@
 package com.scweb.projectservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -12,7 +11,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "samplefield")
+@Table(name = "sample_field")
 public class SampleField {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +23,6 @@ public class SampleField {
     @Column(name = "field_value")
     private String fieldValue;
 
-    @JsonBackReference
     @ManyToOne
     @JoinColumn(name = "sample_id", referencedColumnName = "id")
     private Sample sample;

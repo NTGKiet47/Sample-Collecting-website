@@ -1,6 +1,6 @@
 package com.scweb.projectservice.controller;
 
-import com.scweb.projectservice.model.Project;
+import com.scweb.projectservice.dto.ProjectOnly;
 import com.scweb.projectservice.model.UserAccount;
 import com.scweb.projectservice.service.ProjectService;
 import com.scweb.projectservice.service.UserAccountService;
@@ -21,20 +21,16 @@ public class ProjectController {
     private final UserAccountService userAccountService;
 
     @GetMapping
-    public ResponseEntity<List<Project>> getAllProjects(@RequestParam(name = "userId") String userId){
+    public ResponseEntity<List<ProjectOnly>> getAllProjects(@RequestParam(name = "userId") String userId){
         UserAccount userAccount = userAccountService.findByUserId(userId);
-        if(userAccount != null){
-            log.info(userId + " --------------- " + userAccount);
-            List<Project> projectList = projectService.getAllProjects(userAccount);
-            return ResponseEntity.ok(projectList);
-        }
-        return (ResponseEntity<List<Project>>) ResponseEntity.notFound();
+        log.info("{} --------------- {}", userId, userAccount);
+        List<ProjectOnly> projectList = projectService.getAllProjects(userAccount);
+        return ResponseEntity.ok(projectList);
     }
 
     @PostMapping
     public ResponseEntity<List<Integer>> syncProjects(@RequestParam(name = "userEmail") String userEmail){
         return null;
     }
-
 
 }

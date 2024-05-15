@@ -1,8 +1,5 @@
 package com.scweb.projectservice.model;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -27,10 +24,8 @@ public class Project {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
-    @JsonBackReference
     private UserAccount userAccount;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, targetEntity = Sample.class)
     private List<Sample> sampleList;
 }

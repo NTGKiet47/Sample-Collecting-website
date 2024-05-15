@@ -1,5 +1,6 @@
 package com.scweb.projectservice.repository;
 
+import com.scweb.projectservice.dto.ProjectOnly;
 import com.scweb.projectservice.model.Project;
 import com.scweb.projectservice.model.UserAccount;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface ProjectRepository extends JpaRepository<Project, Integer> {
-    List<Project>  findProjectsByUserAccount(UserAccount userAccount);
+    List<ProjectOnly>  findProjectsByUserAccount(UserAccount userAccount);
 }

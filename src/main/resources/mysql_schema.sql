@@ -11,7 +11,7 @@ create table project(
                         project_name varchar(200) not null,
                         project_desc TINYTEXT default null,
                         owner_id varchar(100) not null,
-                        foreign key (owner_id) references userAccount(user_id)
+                        foreign key (owner_id) references user_account(user_id)
 );
 
 create table sample(
@@ -29,7 +29,7 @@ create table sampleField(
                              foreign key (sample_id) references sample(id)
 );
 
-insert into userAccount value ('bang123');
+insert into user_account value ('bang123');
 insert into project value (1, 'testProjectName', 'testProjectDesc', 'bang123');
 insert into sample value (1, 'vsdfv/sfdbfdsb/agergerg', 1);
-insert into sampleField value (1, 'testFieldName', 'testFieldValue', 1);
+insert into sample_field value (1, 'testFieldName', 'testFieldValue', 1);
