@@ -1,9 +1,10 @@
 package com.scweb.projectservice.controller;
 
-import com.scweb.projectservice.dto.ProjectOnly;
-import com.scweb.projectservice.model.UserAccount;
+import com.scweb.projectservice.dto.ProjectDto;
+import com.scweb.projectservice.dto.SampleDto;
+import com.scweb.projectservice.dto.SampleFieldDto;
+import com.scweb.projectservice.dto.StageDto;
 import com.scweb.projectservice.service.ProjectService;
-import com.scweb.projectservice.service.UserAccountService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -18,19 +19,32 @@ import java.util.List;
 public class ProjectController {
     private final ProjectService projectService;
 
-    private final UserAccountService userAccountService;
-
     @GetMapping
-    public ResponseEntity<List<ProjectOnly>> getAllProjects(@RequestParam(name = "userId") String userId){
-        UserAccount userAccount = userAccountService.findByUserId(userId);
-        log.info("{} --------------- {}", userId, userAccount);
-        List<ProjectOnly> projectList = projectService.getAllProjects(userAccount);
+    public ResponseEntity<List<ProjectDto>> getAllProjects(@RequestParam(name = "userId") String userId){
+        List<ProjectDto> projectList = projectService.getAllProjects(userId);
         return ResponseEntity.ok(projectList);
+    }
+
+    @GetMapping("/stage")
+    public ResponseEntity<List<StageDto>> getAllStages(@RequestParam(name = "projectId") Long projectId){
+        return ResponseEntity.ok(projectService.getAllStages(projectId));
+    }
+
+    @GetMapping("/stage/sample")
+    public ResponseEntity<List<SampleDto>> getAllSamples(@RequestParam(name = "stageId") Long stageId){
+        return ResponseEntity.ok(projectService.getAllSamples(stageId));
+    }
+
+    @GetMapping("/stage/sample/field")
+    public ResponseEntity<List<SampleFieldDto>> getAllFields(@RequestParam(name = "sampleId") Long sampleId){
+        return ResponseEntity.ok(projectService.getAllFields(sampleId));
     }
 
     @PostMapping
     public ResponseEntity<List<Integer>> syncProjects(@RequestParam(name = "userEmail") String userEmail){
         return null;
     }
+
+
 
 }

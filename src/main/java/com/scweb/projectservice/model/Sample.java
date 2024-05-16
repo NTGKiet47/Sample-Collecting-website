@@ -1,10 +1,7 @@
 package com.scweb.projectservice.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,17 +11,18 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "sample")
+@Builder
 public class Sample {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "image_path")
     private String imagePath;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "project_id", referencedColumnName = "id")
-    private Project project;
+    @ManyToOne
+    @JoinColumn(name = "stage_id", referencedColumnName = "id")
+    private Stage stage;
 
     @OneToMany(mappedBy = "sample", fetch = FetchType.EAGER, targetEntity = SampleField.class)
     private List<SampleField> sampleFieldList;

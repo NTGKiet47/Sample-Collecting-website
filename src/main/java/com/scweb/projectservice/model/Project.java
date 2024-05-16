@@ -11,10 +11,11 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "project")
+@Builder
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @Column(name = "project_name")
     private String projectName;
@@ -26,6 +27,6 @@ public class Project {
     @JoinColumn(name = "owner_id")
     private UserAccount userAccount;
 
-    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, targetEntity = Sample.class)
-    private List<Sample> sampleList;
+    @OneToMany(mappedBy = "project")
+    private List<Stage> stageList;
 }
