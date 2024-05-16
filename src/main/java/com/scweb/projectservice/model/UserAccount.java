@@ -1,6 +1,5 @@
 package com.scweb.projectservice.model;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,7 +19,6 @@ public class UserAccount {
     @Column(name = "user_id")
     private String userId;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "userAccount", fetch = FetchType.LAZY
             , cascade = CascadeType.PERSIST, targetEntity = Project.class)
     List<Project> projectList;

@@ -2,7 +2,7 @@ create database sampleCollecting;
 
 use sampleCollecting;
 
-create table userAccount (
+create table user_account (
                               user_id varchar(100) not null primary key
 );
 
@@ -21,7 +21,7 @@ create table sample(
                        foreign key (project_id) references project(id)
 );
 
-create table sampleField(
+create table sample_field(
                              id int not null primary key auto_increment,
                              field_name varchar(100) not null,
                              field_value TINYTEXT not null,
