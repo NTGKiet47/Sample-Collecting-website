@@ -1,11 +1,10 @@
 package com.scweb.projectservice.service;
 
-import com.scweb.projectservice.dto.ProjectDto;
-import com.scweb.projectservice.dto.SampleDto;
-import com.scweb.projectservice.dto.SampleFieldDto;
-import com.scweb.projectservice.dto.StageDto;
+import com.scweb.projectservice.dto.*;
+import com.scweb.projectservice.model.Sample;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ProjectService {
     List<ProjectDto> getAllProjects(String userId);
@@ -15,4 +14,9 @@ public interface ProjectService {
     List<SampleDto> getAllSamples(Long stageId);
 
     List<SampleFieldDto> getAllFields(Long sampleId);
+
+//    Optional<Sample> getSampleById(Long sampleId);
+    Optional<SampleDto> getSampleById(Long sampleId);
+
 }
+

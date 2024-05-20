@@ -1,13 +1,7 @@
 package com.scweb.projectservice.service;
 
-import com.scweb.projectservice.dto.ProjectDto;
-import com.scweb.projectservice.dto.SampleDto;
-import com.scweb.projectservice.dto.SampleFieldDto;
-import com.scweb.projectservice.dto.StageDto;
-import com.scweb.projectservice.model.Project;
-import com.scweb.projectservice.model.Sample;
-import com.scweb.projectservice.model.Stage;
-import com.scweb.projectservice.model.UserAccount;
+import com.scweb.projectservice.dto.*;
+import com.scweb.projectservice.model.*;
 import com.scweb.projectservice.repository.FieldRepository;
 import com.scweb.projectservice.repository.ProjectRepository;
 import com.scweb.projectservice.repository.SampleRepository;
@@ -16,6 +10,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,6 +21,7 @@ public class ProjectServiceImpl implements ProjectService {
     private final StageRepository stageRepository;
 
     private  final SampleRepository sampleRepository;
+
     private final FieldRepository fieldRepository;
 
     @Override
@@ -42,11 +38,15 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public List<SampleDto> getAllSamples(Long stageId) {
         return sampleRepository.findByStage(Stage.builder().id(stageId).build());
-
     }
 
     @Override
     public List<SampleFieldDto> getAllFields(Long sampleId) {
         return fieldRepository.findBySample(Sample.builder().id(sampleId).build());
+    }
+
+    @Override
+    public Optional<SampleDto> getSampleById(Long sampleId){
+        return Optional.ofNullable(sampleRepository.getSampleById(sampleId));
     }
 }
