@@ -1,20 +1,26 @@
 package com.scweb.postservice.service;
 
+import com.scweb.postservice.feign.ProjectFeign;
 import com.scweb.postservice.model.Post;
-import com.scweb.postservice.model.UserAccount;
 import com.scweb.postservice.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-
 @Service
 @RequiredArgsConstructor
-public class PostServiceImpl implements PostService {
+public class PostServiceImpl implements PostService{
+
+    private final ProjectFeign projectFeign;
 
     private final PostRepository postRepository;
+
     @Override
-    public List<Post> getAllPost(String userId) {
-        return postRepository.findAllByUserAccount(UserAccount.builder().userId(userId).build());
+    public Boolean isPostExist(Post post) {
+        return postRepository.findById(post.getId()).isPresent();
+    }
+
+    @Override
+    public void createPost(Post newPost) {
+        postRepository.save(newPost);
     }
 }

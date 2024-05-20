@@ -3,19 +3,21 @@ package com.scweb.postservice.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "post")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id", referencedColumnName = "user_id")
-    private UserAccount userAccount;
+    private String content;
+
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, targetEntity = Sample.class)
+    private List<Sample> sampleList;
 }
