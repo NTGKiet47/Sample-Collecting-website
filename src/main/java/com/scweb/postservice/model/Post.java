@@ -1,5 +1,6 @@
 package com.scweb.postservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 

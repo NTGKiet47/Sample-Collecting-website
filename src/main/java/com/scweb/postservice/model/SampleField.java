@@ -1,16 +1,15 @@
 package com.scweb.postservice.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
+@Builder
 @Table(name = "sample_field")
 public class SampleField {
     @Id
@@ -23,6 +22,7 @@ public class SampleField {
     @Column(name = "field_value")
     private String fieldValue;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "sample_id", referencedColumnName = "id")
     private Sample sample;

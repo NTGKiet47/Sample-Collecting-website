@@ -9,10 +9,5 @@ import java.util.List;
 /**
  * DTO for {@link Sample}
  */
-public record SampleDto(Long id, String imagePath, List<SampleFieldDto> sampleFieldList) implements Serializable {
-    /**
-     * DTO for {@link SampleField}
-     */
-    public record SampleFieldDto(Long id, String fieldName, String fieldValue) implements Serializable {
-    }
+public record SampleDto(Long id, String imagePath) implements Serializable {
 }

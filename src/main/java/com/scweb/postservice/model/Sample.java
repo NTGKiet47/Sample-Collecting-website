@@ -1,10 +1,10 @@
 package com.scweb.postservice.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +14,7 @@ import java.util.List;
 @Getter
 @Setter
 @Table(name = "sample")
+@Builder
 public class Sample {
     @Id
     private Long id;
@@ -24,6 +25,7 @@ public class Sample {
     @OneToMany(mappedBy = "sample", fetch = FetchType.EAGER, targetEntity = SampleField.class)
     private List<SampleField> sampleFieldList;
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "post_id", referencedColumnName = "id")
     private Post post;
