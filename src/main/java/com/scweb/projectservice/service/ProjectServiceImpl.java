@@ -20,7 +20,7 @@ public class ProjectServiceImpl implements ProjectService {
 
     private final StageRepository stageRepository;
 
-    private  final SampleRepository sampleRepository;
+    private final SampleRepository sampleRepository;
 
     private final FieldRepository fieldRepository;
 
@@ -46,7 +46,14 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public Optional<SampleDto> getSampleById(Long sampleId){
+    public Optional<SampleDto> getSampleById(Long sampleId) {
         return Optional.ofNullable(sampleRepository.getSampleById(sampleId));
+    }
+
+    @Override
+    public List<SampleDto> getSampleList(List<Long> sampleIdList) {
+        return sampleRepository.findAllById(sampleIdList).stream()
+                .map(sample -> new SampleDto(sample.getId(), sample.getImagePath()))
+                .toList();
     }
 }

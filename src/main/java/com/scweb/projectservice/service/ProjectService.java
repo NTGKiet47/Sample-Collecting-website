@@ -18,5 +18,6 @@ public interface ProjectService {
 //    Optional<Sample> getSampleById(Long sampleId);
     Optional<SampleDto> getSampleById(Long sampleId);
 
+    List<SampleDto> getSampleList(List<Long> sampleIdList);
 }
 

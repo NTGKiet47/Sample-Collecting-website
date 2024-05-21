@@ -1,5 +1,7 @@
 package com.scweb.projectservice.dto;
 
+import com.scweb.projectservice.model.Sample;
+
 import java.io.Serializable;
 
 /**

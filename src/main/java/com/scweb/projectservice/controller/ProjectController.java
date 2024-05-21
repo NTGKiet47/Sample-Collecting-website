@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -35,9 +36,15 @@ public class ProjectController {
     }
 
     @GetMapping("/stage/sample/getSampleById")
-    public ResponseEntity<Optional<SampleDto>> getSampleById(@RequestParam(name = "sampleId") Long sampleId){
+    public ResponseEntity<Optional<SampleDto>> getSampleById(@RequestParam(name = "sampleId") Long sampleId) {
         return ResponseEntity.ok(projectService.getSampleById(sampleId));
     }
+
+    @GetMapping("/stage/sample/getSampleList")
+    public ResponseEntity<List<SampleDto>> getSampleList(@RequestParam List<Long> sampleIdList){
+        return ResponseEntity.ok(projectService.getSampleList(sampleIdList));
+    }
+
 
     @GetMapping("/stage/sample/field")
     public ResponseEntity<List<SampleFieldDto>> getAllFields(@RequestParam(name = "sampleId") Long sampleId){
