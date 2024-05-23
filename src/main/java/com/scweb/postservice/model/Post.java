@@ -1,24 +1,30 @@
 package com.scweb.postservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-@Entity
 @Getter
 @Setter
+@Entity
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@Table(name = "post", schema = "scpostservice")
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
+    @Lob
+    @Column(name = "content")
     private String content;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, targetEntity = Sample.class)
-    private List<Sample> sampleList;
+    @OneToMany(mappedBy = "post",
+    cascade = CascadeType.ALL)
+    private Set<Sample> samples = new LinkedHashSet<>();
+
 }

@@ -1,32 +1,33 @@
 package com.scweb.postservice.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
-@Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
-@Table(name = "sample")
+@Entity
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Table(name = "sample", schema = "scpostservice")
 public class Sample {
-    @Id
-    private Long id;
-
-    @Column(name = "image_path")
-    private String imagePath;
-
-    @OneToMany(mappedBy = "sample", fetch = FetchType.EAGER, targetEntity = SampleField.class)
-    private List<SampleField> sampleFieldList;
+    @EmbeddedId
+    private SampleId id;
 
     @JsonIgnore
-    @ManyToOne
-    @JoinColumn(name = "post_id", referencedColumnName = "id")
+    @MapsId("postId")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "post_id", nullable = false)
     private Post post;
+
+    @Column(name = "image_path", nullable = false, length = 100)
+    private String imagePath;
+
+    @OneToMany(mappedBy = "sample", cascade = CascadeType.ALL)
+    private Set<SampleField> sampleFields = new LinkedHashSet<>();
+
 }

@@ -18,16 +18,27 @@ public class PostController {
 
     private final PostService postService;
 
+    @GetMapping
+    public ResponseEntity<Optional<Post>> getPost(@RequestParam(name = "postId") Long postId){
+        return ResponseEntity.ok(postService.getPost(postId));
+    }
+
     @PostMapping
-    public ResponseEntity<Boolean> createPost(@RequestBody PostDto requestBody) {
-        return postService.createPost(requestBody.sampleIds(), requestBody.content()) != null
+    public ResponseEntity<Boolean> createPost(@RequestBody PostDto post) {
+        Post postCreated = postService.createPost(post.sampleIds(), post.content());
+        return postCreated != null
                 ? ResponseEntity.ok(true)
                 : ResponseEntity.badRequest().build();
     }
 
-    @GetMapping
-    public ResponseEntity<Optional<Post>> getPost(@RequestParam(name = "postId") Long postId){
-        return ResponseEntity.ok(postService.getPost(postId));
+    @PutMapping
+    public ResponseEntity<Boolean> editPostContent(@RequestParam Long postId, @RequestBody String content){
+        return ResponseEntity.ok(postService.editPostContent(postId, content));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Boolean> deletePost(@RequestParam(name = "postId") Long postId){
+        return postService.deletePost(postId) ? ResponseEntity.ok(true) : ResponseEntity.badRequest().build();
     }
 
 }

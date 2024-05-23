@@ -9,16 +9,15 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
+import java.util.Set;
 
 @FeignClient(name = "project-service", url = "http://localhost:8080/api/project")
 public interface ProjectFeign {
     @GetMapping("/stage/sample/getSampleById")
     SampleDto getSampleById(@RequestParam(name = "sampleId") Long sampleId);
 
-    @GetMapping("/stage/sample/field")
-    List<SampleFieldDto> getAllFields(@RequestParam(name = "sampleId") Long sampleId);
 
     @GetMapping("/stage/sample/getSampleList")
-    List<SampleDto> getSampleList(@RequestParam List<Long> sampleIdList);
+    Set<SampleDto> getSampleList(@RequestParam List<Long> sampleIdList);
 
 }
