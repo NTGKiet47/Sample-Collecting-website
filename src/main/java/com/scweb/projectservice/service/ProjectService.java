@@ -13,11 +13,9 @@ public interface ProjectService {
 
     List<SampleDto> getAllSamples(Long stageId);
 
-    List<SampleFieldDto> getAllFields(Long sampleId);
-
 //    Optional<Sample> getSampleById(Long sampleId);
-    Optional<SampleDto> getSampleById(Long sampleId);
+    Optional<Sample> getSampleById(Long sampleId);
 
-    List<SampleDto> getSampleList(List<Long> sampleIdList);
+    List<Sample> getSampleList(List<Long> sampleIdList);
 }
 

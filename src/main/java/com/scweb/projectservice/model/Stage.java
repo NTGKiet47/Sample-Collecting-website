@@ -1,6 +1,7 @@
 package com.scweb.projectservice.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,12 +26,11 @@ public class Stage {
 
     private LocalDate endDate;
 
-    @JsonBackReference
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "project_id", referencedColumnName = "id")
     private Project project;
 
-    @JsonManagedReference
     @OneToMany(mappedBy = "stage", targetEntity = Sample.class)
     private List<Sample> sampleList;
 

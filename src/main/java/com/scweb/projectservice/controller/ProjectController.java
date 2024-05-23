@@ -20,42 +20,39 @@ public class ProjectController {
     private final ProjectService projectService;
 
     @GetMapping
-    public ResponseEntity<List<ProjectDto>> getAllProjects(@RequestParam(name = "userId") String userId){
+    public ResponseEntity<List<ProjectDto>> getAllProjects(@RequestParam(name = "userId") String userId) {
         List<ProjectDto> projectList = projectService.getAllProjects(userId);
         return ResponseEntity.ok(projectList);
     }
 
     @GetMapping("/stage")
-    public ResponseEntity<List<StageDto>> getAllStages(@RequestParam(name = "projectId") Long projectId){
+    public ResponseEntity<List<StageDto>> getAllStages(@RequestParam(name = "projectId") Long projectId) {
         return ResponseEntity.ok(projectService.getAllStages(projectId));
     }
 
     @GetMapping("/stage/sample")
-    public ResponseEntity<List<SampleDto>> getAllSamples(@RequestParam(name = "stageId") Long stageId){
+    public ResponseEntity<List<SampleDto>> getAllSamples(@RequestParam(name = "stageId") Long stageId) {
         return ResponseEntity.ok(projectService.getAllSamples(stageId));
     }
 
+    //    @GetMapping("/stage/sample/getSampleById")
+//    public ResponseEntity<Optional<SampleDto>> getSampleById(@RequestParam(name = "sampleId") Long sampleId) {
+//        return ResponseEntity.ok(projectService.getSampleById(sampleId));
+//    }
     @GetMapping("/stage/sample/getSampleById")
-    public ResponseEntity<Optional<SampleDto>> getSampleById(@RequestParam(name = "sampleId") Long sampleId) {
+    public ResponseEntity<Optional<Sample>> getSampleById(@RequestParam(name = "sampleId") Long sampleId) {
         return ResponseEntity.ok(projectService.getSampleById(sampleId));
     }
 
     @GetMapping("/stage/sample/getSampleList")
-    public ResponseEntity<List<SampleDto>> getSampleList(@RequestParam List<Long> sampleIdList){
+    public ResponseEntity<List<Sample>> getSampleList(@RequestParam List<Long> sampleIdList) {
         return ResponseEntity.ok(projectService.getSampleList(sampleIdList));
     }
 
-
-    @GetMapping("/stage/sample/field")
-    public ResponseEntity<List<SampleFieldDto>> getAllFields(@RequestParam(name = "sampleId") Long sampleId){
-        return ResponseEntity.ok(projectService.getAllFields(sampleId));
-    }
-
     @PostMapping
-    public ResponseEntity<List<Integer>> syncProjects(@RequestParam(name = "userEmail") String userEmail){
+    public ResponseEntity<List<Integer>> syncProjects(@RequestParam(name = "userEmail") String userEmail) {
         return null;
     }
-
 
 
 }

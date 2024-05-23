@@ -41,19 +41,12 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<SampleFieldDto> getAllFields(Long sampleId) {
-        return fieldRepository.findBySample(Sample.builder().id(sampleId).build());
+    public Optional<Sample> getSampleById(Long sampleId) {
+        return sampleRepository.findById(sampleId);
     }
 
     @Override
-    public Optional<SampleDto> getSampleById(Long sampleId) {
-        return Optional.ofNullable(sampleRepository.getSampleById(sampleId));
-    }
-
-    @Override
-    public List<SampleDto> getSampleList(List<Long> sampleIdList) {
-        return sampleRepository.findAllById(sampleIdList).stream()
-                .map(sample -> new SampleDto(sample.getId(), sample.getImagePath()))
-                .toList();
+    public List<Sample> getSampleList(List<Long> sampleIdList) {
+        return sampleRepository.findAllById(sampleIdList);
     }
 }

@@ -12,6 +12,4 @@ import java.util.List;
 public interface SampleRepository extends JpaRepository<Sample, Long> {
     List<SampleDto> findByStage(Stage stage);
 
-    SampleDto getSampleById(Long sampleId);
-
 }

@@ -10,5 +10,4 @@ import java.util.List;
 
 @Repository
 public interface FieldRepository extends JpaRepository<SampleField, Long> {
-    List<SampleFieldDto> findBySample(Sample sample);
 }
