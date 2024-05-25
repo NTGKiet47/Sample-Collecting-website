@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostService {
-    Post createPost(List<Long> sampleIds, String content);
+    Post createPost(List<Long> sampleIds, String content, List<Long> domainIds);
 
     Optional<Post> getPost(Long postId);
 

@@ -1,9 +1,11 @@
 package com.scweb.postservice.service;
 
 import com.scweb.postservice.feign.ProjectFeign;
+import com.scweb.postservice.model.Domain;
 import com.scweb.postservice.model.Post;
 import com.scweb.postservice.model.Sample;
 import com.scweb.postservice.model.SampleField;
+import com.scweb.postservice.repository.DomainRepository;
 import com.scweb.postservice.repository.PostRepository;
 import com.scweb.postservice.repository.SampleFieldRepository;
 import com.scweb.postservice.repository.SampleRepository;
@@ -26,7 +28,7 @@ public class PostServiceImpl implements PostService {
 
     private final SampleRepository sampleRepository;
 
-    private final SampleFieldRepository sampleFieldRepository;
+    private final DomainRepository domainRepository;
 
     private Post isPostExists(Long postId){
         Optional<Post> postOptional = postRepository.findById(postId);
@@ -34,8 +36,15 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
-    public Post createPost(List<Long> sampleIds, String content) {
-        Post post = Post.builder().content(content).samples(new LinkedHashSet<>()).build();
+    public Post createPost(List<Long> sampleIds, String content, List<Long> domainIds) {
+
+        Set<Domain> domains = new HashSet<>(domainRepository.findAllById(domainIds));
+
+        Post post = Post.builder()
+                .content(content)
+                .samples(new LinkedHashSet<>())
+                .domains(new LinkedHashSet<>())
+                .build();
 
         Set<Sample> samples = projectFeign.getSampleList(sampleIds).stream().map(
                 sampleDto -> {
@@ -65,6 +74,7 @@ public class PostServiceImpl implements PostService {
         ).collect(Collectors.toSet());
 
         post.assignSamples(samples);
+        post.assignDomains(domains);
         postRepository.save(post);
         return post;
     }
@@ -81,6 +91,9 @@ public class PostServiceImpl implements PostService {
 
         Set<Sample> samples = new HashSet<>(post.getSamples());
         post.getSamples().clear();
+
+        post.getDomains().clear();
+
         postRepository.delete(post);
 
         // check if a sample is still associated to any remaining posts

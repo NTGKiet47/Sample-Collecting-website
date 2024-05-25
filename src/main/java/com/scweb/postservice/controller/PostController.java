@@ -25,7 +25,7 @@ public class PostController {
 
     @PostMapping
     public ResponseEntity<Boolean> createPost(@RequestBody PostDto post) {
-        Post postCreated = postService.createPost(post.sampleIds(), post.content());
+        Post postCreated = postService.createPost(post.sampleIds(), post.content(), post.domainIds());
         return postCreated != null
                 ? ResponseEntity.ok(true)
                 : ResponseEntity.badRequest().build();

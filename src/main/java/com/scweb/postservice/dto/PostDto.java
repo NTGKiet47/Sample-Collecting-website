@@ -5,6 +5,7 @@ import lombok.Builder;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Set;
 
 /**
  * DTO for {@link Post}
@@ -12,5 +13,5 @@ import java.util.List;
 
 //this DTO used for creating a post, need a list of ids (long format) and content (a string)
 @Builder
-public record PostDto(List<Long> sampleIds, String content) implements Serializable {
+public record PostDto(List<Long> sampleIds, String content, List<Long> domainIds) implements Serializable {
 }

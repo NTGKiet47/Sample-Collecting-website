@@ -29,7 +29,17 @@ public class Post {
             inverseJoinColumns = @JoinColumn(name = "sample_id"))
     private Set<Sample> samples = new LinkedHashSet<>();
 
+    @ManyToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "post_domain",
+            joinColumns = @JoinColumn(name = "post_id"),
+            inverseJoinColumns = @JoinColumn(name = "domain_id"))
+    private Set<Domain> domains = new LinkedHashSet<>();
+
     public void assignSamples(Set<Sample> sample){
         samples.addAll(sample);
     }
+    public void assignDomains(Set<Domain> domain){
+        domains.addAll(domain);
+    }
+
 }
