@@ -37,8 +37,9 @@ public class PostController {
     }
 
     @DeleteMapping
-    public ResponseEntity<Boolean> deletePost(@RequestParam(name = "postId") Long postId){
-        return postService.deletePost(postId) ? ResponseEntity.ok(true) : ResponseEntity.badRequest().build();
+    public ResponseEntity<String> deletePost(@RequestParam(name = "postId") Long postId){
+        postService.deletePost(postId);
+        return ResponseEntity.ok("Delete post successfully");
     }
 
 }

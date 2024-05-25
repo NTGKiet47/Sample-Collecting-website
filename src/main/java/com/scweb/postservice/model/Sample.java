@@ -10,24 +10,22 @@ import java.util.Set;
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "sample", schema = "scpostservice")
 public class Sample {
-    @EmbeddedId
-    private SampleId id;
-
-    @JsonIgnore
-    @MapsId("postId")
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "post_id", nullable = false)
-    private Post post;
+    @Id
+    @Column(name = "id", nullable = false)
+    private Long id;
 
     @Column(name = "image_path", nullable = false, length = 100)
     private String imagePath;
 
+    @JsonIgnore
+    @ManyToMany(mappedBy = "samples")
+    private Set<Post> posts = new LinkedHashSet<>();
+
     @OneToMany(mappedBy = "sample", cascade = CascadeType.ALL)
     private Set<SampleField> sampleFields = new LinkedHashSet<>();
-
 }

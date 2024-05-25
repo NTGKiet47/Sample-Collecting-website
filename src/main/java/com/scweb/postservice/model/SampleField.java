@@ -7,9 +7,9 @@ import lombok.*;
 @Getter
 @Setter
 @Entity
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Builder
 @Table(name = "sample_field", schema = "scpostservice")
 public class SampleField {
     @Id
@@ -25,10 +25,7 @@ public class SampleField {
 
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumns({
-            @JoinColumn(name = "sample_id", referencedColumnName = "post_id", nullable = false),
-            @JoinColumn(name = "post_id", referencedColumnName = "id", nullable = false)
-    })
+    @JoinColumn(name = "sample_id", nullable = false)
     private Sample sample;
 
 }
